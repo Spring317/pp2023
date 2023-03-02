@@ -1,10 +1,7 @@
 #create dictionaries for students, courses and marks(including attendance, midterm and final mark):
 students = {}
 course = {}
-midterm_mark = {}
-final_mark = {}
-attendance_mark = {}
-
+mark = {}
 
 #get courses' info:
 def input_course():
@@ -43,34 +40,23 @@ def input_students():
         student_dob = input("Enter the student dob: ")
         students[student_id] = {"name": student_name, "dob": student_dob}
 
-
+    
 #get marks' for students in each course (option 1):
 def input_mark():
 
-    course_id = input("Enter the course id: ")
+    course_id = input("Enter the course ID: ")
     if course_id not in course:
-        print("Course id not found: ")
+        print("Course not found!")
         return
-    print(f"Mark for student in course: {course[course_id]['name']}")
-    
-    #input mark:
+    print(f"Marks for student in {course[course_id]['name']}")
     for student_id in students:
-        attendance_marks = float(input(f"Enter the addtendance mark for {students[student_id]['name']}: "))
-        midterm_marks = float(input(f"Enter the midterm mark for {students[student_id]['name']}: "))
-        finals_marks = float(input(f"Enter the final mark for {students[student_id]['name']}: "))    
-        
-        #add the marks to their dictionaries:
-        if student_id not in midterm_mark:
-            midterm_mark[student_id] ={}
-            midterm_mark[student_id][course_id] = midterm_marks
-        
-        if student_id not in final_mark:
-            final_mark[student_id] ={}
-            final_mark[student_id][course_id] = finals_marks
-        
-        if student_id not in attendance_mark:
-            attendance_mark[student_id] = {}
-            attendance_mark[student_id][course_id] = attendance_marks    
+        attendance = float(input(f"Enter the attendance mark for {students[student_id]['name']}: "))
+        midterm = float(input(f"Enter the midterm mark for {students[student_id]['name']}: "))
+        final = float(input(f"Enter the final mark for {students[student_id]['name']}: "))
+        if student_id not in mark:
+            mark[student_id] = {}
+        mark[student_id][course_id] = [attendance, midterm, final]
+                
     
 
 #display course (option 2):
@@ -88,32 +74,18 @@ def display_student():
 #display mark (option 4):
 
 def display_mark(): 
-    course_id = input("Enter the course id: ")
+    
+    course_id = input("Enter the course ID: ")
     if course_id not in course:
-        print("Course id not found: ")
+        print("Course not found!")
         return
-    print(f"Course: {course[course_id]['name']}")     
-    
     for student_id in students:
-        print(f"{students[student_id]['name']}")
+        if student_id in mark and course_id in mark[student_id]:
+            
+            print(f"{students[student_id]['name']}: {mark[student_id][course_id]}")
+        else:
+            print(f"{students[student_id]['name']}: Marks not available")
         
-        #check if all the students have their marks or not:
-        if student_id in attendance_mark and course_id in attendance_mark[student_id]:
-            print(f"    Attendance mark: {attendance_mark[student_id][course_id]}")
-        else: 
-            print(f"    Attendace mark not available")
-
-        if student_id in midterm_mark and course_id in midterm_mark[student_id]:
-            print(f"    Midterm mark: {midterm_mark[student_id][course_id]}")
-        else: 
-            print(f"    Midterm mark not available")
-  
-        if student_id in final_mark and course_id in final_mark[student_id]:
-            print(f"    Final mark: {final_mark[student_id][course_id]}")
-        else: 
-            print(f"    Final mark not available")
-    
-    
 #Main function: 
 
 input_students()
