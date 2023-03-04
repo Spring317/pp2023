@@ -3,15 +3,21 @@ students = {}
 courses = {}
 marks = {}
 
-
+#Create class Course 
 class Course:
+    
+    
     def __init__(self, id, name):
+        #Perform encapsulation
         self.__name = name
         self.__id = id
+    
     def get_Name(self):
         return self.__name
+    
     def get_ID(self):
         return self.__id
+    
     def set_Course(self):
         courses[self.get_ID()] = {'name': self.get_Name()}
 
@@ -31,18 +37,21 @@ class Course:
                 course_id = input("Re-enter course id (e.g: ict-001): ")  
             course_name = input("Enter course's name: ")
             course_info = Course(course_id, course_name) 
+            
             course_info.set_Course()
-        
+   
+   #display course (Option 2)    
     def display_course():
         for course_id in courses:
             print(f"{course_id}: {courses[course_id]['name']}")
 
 
 
-
+#Create class Person
 class Person:
     
     def __init__(self, name, dob):
+        #Perform encapsulation
         self.__name = name
         self.__dob = dob 
     
@@ -52,9 +61,10 @@ class Person:
     def get_DOB(self):
         return self.__dob
 
-
+#Create class Student inherited from class Person
 class Student(Person):
     
+    #Perform encapsulation
     def __init__(self, name, dob, id):
         super().__init__(name, dob)
         self.__id = id
@@ -65,17 +75,18 @@ class Student(Person):
     def get_Student(self):
         students[self.get_ID()] = {"name": self.get_Name(), "dob": self.get_DOB()}
 
+    #get Students' info
     def input_students():
         number_of_student = int(input("Enter the number of students in the class: "))
     
-    #Make sure that the number of student is not negative
+        #Make sure that the number of student is not negative
         while number_of_student < 0 : 
             number_of_student = int(input("Please enter a positive number: "))
     
         for i in range(number_of_student):
             student_id = input("Enter the student ID (eg: bi01-001): ")
         
-        #Check if student id follows the format bixx-yyy 
+            #Check if student id follows the format bixx-yyy 
             while "bi" not in student_id: 
                 student_id = input("Re-enter student id (eg: bi01-001): ")
         
@@ -91,10 +102,11 @@ class Student(Person):
             print(f"{student_id}: {students[student_id]['name'],students[student_id]['dob']}")
 
 
-
+#Create class Mark
 class Mark:
-
+    
     def __init__(self, attendance, midterm, final):
+       #Perform encapsulation
        self.__attendance = attendance
        self.__midterm = midterm
        self.__final = final
@@ -109,7 +121,7 @@ class Mark:
          if student_id not in marks:
             marks[student_id] ={}
          marks[student_id][course_id] = [self.get_attendance(), self.get_midterm(), self.get_final()]
-#get marks' for students in each course (option 1):
+    #get marks' for students in each course (option 1):
     def input_mark():
 
         course_id = input("Enter the course ID: ")
@@ -125,7 +137,7 @@ class Mark:
             marks_for_student.get_all_Mark(student_id, course_id)
                 
     
-
+    #display marks (option 4)
     def display_mark(): 
     
         course_id = input("Enter the course ID: ")
@@ -142,10 +154,12 @@ class Mark:
         
 #Main function: 
 
+#Create objects 
 courses_data = Course
 students_data = Student
 marks_data = Mark
 
+#Perform methods
 students_data.input_students()
 courses_data.input_course()
 
