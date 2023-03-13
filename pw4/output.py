@@ -56,7 +56,7 @@ class Output:
                 stdscr.addstr(column,10, "***********************************************************************OPTIONS: 4*************************************************************************")
                 column += 2
                 Output.display_mark(column)
-
+                
             elif option == 5:
                 stdscr.addstr(column,10, "***********************************************************************OPTIONS: 5*************************************************************************")
                 column += 2
@@ -107,6 +107,9 @@ class Output:
         column += 2
         if course_id not in Input.courses:
             stdscr.addstr(column, 10, "COURSE NOT FOUND! PRESS ENTER TO PRECEED. ")
+            stdscr.getch()
+            stdscr.clear()
+
             return
         
         column +=2
