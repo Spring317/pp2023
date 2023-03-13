@@ -219,21 +219,16 @@ class Input:
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE ATTENDANCE MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE ATTENDANCE MARK FOR {students[student_id]['name']}: "            
-            attendance = float(stdscr.getstr(column, 10 + len(str), 2)).decode("utf-8")
+            attendance = float(stdscr.getstr(column, 10 + len(str), 2))
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE MIDTERM MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE MIDTERM MARK FOR {students[student_id]['name']}: "
-            midterm = float(stdscr.getstr(column, 10+ len(str), 2)).decode("utf-8")
+            midterm = float(stdscr.getstr(column, 10+ len(str), 2))
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE FINAL MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE FINAL MARK FOR {students[student_id]['name']}: "
-            final = float(stdscr.getstr(column, 10+ len(str), 2)).decode("utf-8")
+            final = float(stdscr.getstr(column, 10+ len(str), 2))
             
-            
-            
-            
-        
-        
             marks_for_student = Mark(attendance, midterm, final)
             if student_id not in marks:
                 marks[student_id] = {}
@@ -298,6 +293,8 @@ class Output:
                 stdscr.addstr(column,10, "***********************************************************************OPTIONS: 4*************************************************************************")
                 column += 2
                 Output.display_mark(column)
+                stdscr.getch()
+                stdscr.clear()
 
             elif option == 5:
                 stdscr.addstr(column,10, "***********************************************************************OPTIONS: 5*************************************************************************")
@@ -348,7 +345,7 @@ class Output:
         stdscr.addstr(column,10, "***********************************************************************INPUT STEP*************************************************************************")
         column += 2
         stdscr.addstr(column,10, "ENTER THE COURSE ID: ")
-        course_id = stdscr.getstr(column,31, 50)
+        course_id = stdscr.getstr(column,31, 50).decode("utf-8")
         column += 2
         if course_id not in courses:
             stdscr.addstr(column, 10, "COURSE NOT FOUND! ")
