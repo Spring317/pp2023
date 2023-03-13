@@ -63,9 +63,6 @@ class Student(Person):
     def get_ID(self):
         return self.__id
     
-  
-
-    #get Students' info
     
 
 
@@ -114,8 +111,10 @@ class Mark:
         sortedGPA = sorted(gpa.items(), key=lambda x:x[1]['gpa'], reverse= True)
         return f"{sortedGPA}"        
 
+#Create Input class
 class Input:
 
+    #Display UI
     def front_page(stdscr = curses.initscr()):
         column = 1    
         stdscr.addstr(column,10, "***************************************************************STUDENTS MANAGEMENT SYSTEM***************************************************************")
@@ -127,7 +126,7 @@ class Input:
         stdscr.clear()
         column = 1
        
-    #get courses' info:
+    #get courses' infomation:
     def input_course(stdscr = curses.initscr()):
         curses.echo()
         column = 1
@@ -142,12 +141,12 @@ class Input:
             column += 2
             stdscr.addstr(column,10, "ENTER COURSE'S ID: ")
             str = "ENTER COURSE'S ID: "
-            user_input_id = stdscr.getstr(column,10 + len(str), 50)
+            user_input_id = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER COURSE'S NAME: ")
             str = "ENTER COURSE'S NAME: "
-            user_input_name = stdscr.getstr(column,10 + len(str), 100)
+            user_input_name = stdscr.getstr(column,10 + len(str), 100).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER COURSE'S CREDIT: ")
@@ -164,7 +163,7 @@ class Input:
         stdscr.getch()
         stdscr.clear()
     
-    
+    #get students' information
     def input_students(stdscr = curses.initscr()):
         
         column = 1
@@ -172,23 +171,23 @@ class Input:
         column += 2
         stdscr.addstr(column,10, "ENTER NUMBER OF STUDENTS: ")
         curses.echo()
-        user_input = stdscr.getstr(column,37, 1)
+        user_input = stdscr.getstr(column,37, 1).decode("utf-8")
         student_number = int(user_input)
         for i in range (student_number):
             column += 2
             stdscr.addstr(column,10, "ENTER STUDENT'S ID: ")
             str = "ENTER STUDENT'S ID: "
-            user_input_id = stdscr.getstr(column,10 + len(str), 50)
+            user_input_id = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER STUDENT'S NAME: ")
             str = "ENTER STUDENT'S NAME: "
-            user_input_name = stdscr.getstr(column,10 + len(str), 20)
+            user_input_name = stdscr.getstr(column,10 + len(str), 20).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER STUDENT'S DATE OF BIRTH: ")
             str = "ENTER STUDENT'S DATE OF BIRTH: "
-            user_input_dob = stdscr.getstr(column,10 + len(str), 50)
+            user_input_dob = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             student_info = Student(user_input_name, user_input_dob, user_input_id)
             students[student_info.get_ID()] = {"name": student_info.get_Name(),  "dob": student_info.get_DOB()}
@@ -208,7 +207,7 @@ class Input:
         column += 2
         
         stdscr.addstr(column,10, "ENTER THE COURSE ID: ")
-        course_id = stdscr.getstr(column,31, 50)
+        course_id = stdscr.getstr(column,31, 50).decode("utf-8")
         column += 2
         if course_id not in courses:
             stdscr.addstr(column, 10, "COURSE NOT FOUND! ")
@@ -220,20 +219,20 @@ class Input:
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE ATTENDANCE MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE ATTENDANCE MARK FOR {students[student_id]['name']}: "            
-            attendance = float(stdscr.getstr(column, 10 + len(str), 2))
+            attendance = float(stdscr.getstr(column, 10 + len(str), 2)).decode("utf-8")
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE MIDTERM MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE MIDTERM MARK FOR {students[student_id]['name']}: "
-            midterm = float(stdscr.getstr(column, 10+ len(str), 2))
+            midterm = float(stdscr.getstr(column, 10+ len(str), 2)).decode("utf-8")
             column += 2
             stdscr.addstr(column, 10, f"ENTER THE FINAL MARK FOR {students[student_id]['name']}: ")
             str = f"ENTER THE FINAL MARK FOR {students[student_id]['name']}: "
-            final = float(stdscr.getstr(column, 10+ len(str), 2))
+            final = float(stdscr.getstr(column, 10+ len(str), 2)).decode("utf-8")
             
             
             
             
-            #average*0.2 will return marks and gpa in 4.0 scale
+        
         
             marks_for_student = Mark(attendance, midterm, final)
             if student_id not in marks:
@@ -249,8 +248,11 @@ class Input:
         stdscr.getch()
         stdscr.clear()
 
+
+#Create output class
 class Output:
 
+    #Display options:
     def option_slide(stdscr = curses.initscr()):
         while True:
             column = 1
@@ -314,6 +316,7 @@ class Output:
         
     
         stdscr.getch()
+
     #display course (Option 2)    
     def display_course(column, stdscr = curses.initscr()):
         
@@ -325,6 +328,7 @@ class Output:
         stdscr.addstr(column, 75, "PRESS ENTER TO CONTINUE")           
         stdscr.getch()
         stdscr.clear()
+    
     #display student (option 3):
     
     def display_student(column, stdscr = curses.initscr()):
@@ -336,6 +340,7 @@ class Output:
         stdscr.addstr(column, 75, "PRESS ENTER TO CONTINUE")           
         stdscr.getch()
         stdscr.clear()
+    
     #display marks (option 4)
     def display_mark(column, stdscr = curses.initscr()): 
         
