@@ -5,15 +5,17 @@ from Domain.Mark import Mark
 import curses
 from curses import wrapper
 
-
+#Create Input for curses display
 class Input:
     
-    
+    #Create Data
     courses = {}
     students = {}
     marks = {}
 
+    #Display curses UI
     def front_page(stdscr = curses.initscr()):
+        
         column = 1    
         stdscr.addstr(column,10, "***************************************************************STUDENTS MANAGEMENT SYSTEM***************************************************************")
         column += 2
@@ -23,9 +25,10 @@ class Input:
         stdscr.getch()
         stdscr.clear()
         column = 1
-    #get courses' info:
+    
     #get courses' info:
     def input_course(stdscr = curses.initscr()):
+        
         curses.echo()
         column = 1
         stdscr.addstr(column,10, "***********************************************************************INPUT STEP*************************************************************************")
@@ -39,12 +42,12 @@ class Input:
             column += 2
             stdscr.addstr(column,10, "ENTER COURSE'S ID: ")
             str = "ENTER COURSE'S ID: "
-            user_input_id = stdscr.getstr(column,10 + len(str), 50)
+            user_input_id = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER COURSE'S NAME: ")
             str = "ENTER COURSE'S NAME: "
-            user_input_name = stdscr.getstr(column,10 + len(str), 100)
+            user_input_name = stdscr.getstr(column,10 + len(str), 100).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER COURSE'S CREDIT: ")
@@ -78,17 +81,17 @@ class Input:
             column += 2
             stdscr.addstr(column,10, "ENTER STUDENT'S ID: ")
             str = "ENTER STUDENT'S ID: "
-            user_input_id = stdscr.getstr(column,10 + len(str), 50)
+            user_input_id = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER STUDENT'S NAME: ")
             str = "ENTER STUDENT'S NAME: "
-            user_input_name = stdscr.getstr(column,10 + len(str), 20)
+            user_input_name = stdscr.getstr(column,10 + len(str), 20).decode("utf-8")
             stdscr.refresh()
             column +=2
             stdscr.addstr(column,10, "ENTER STUDENT'S DATE OF BIRTH: ")
             str = "ENTER STUDENT'S DATE OF BIRTH: "
-            user_input_dob = stdscr.getstr(column,10 + len(str), 50)
+            user_input_dob = stdscr.getstr(column,10 + len(str), 50).decode("utf-8")
             stdscr.refresh()
             student_info = Student(user_input_name, user_input_dob, user_input_id)
             Input.students[student_info.get_ID()] = {"name": student_info.get_Name(),  "dob": student_info.get_DOB()}
@@ -115,7 +118,7 @@ class Input:
         column += 2
         
         stdscr.addstr(column,10, "ENTER THE COURSE ID: ")
-        course_id = stdscr.getstr(column,31, 50)
+        course_id = stdscr.getstr(column,31, 50).decode("utf-8")
         column += 2
         if course_id not in Input.courses:
             stdscr.addstr(column, 10, "COURSE NOT FOUND! PRESS ENTER TO PRECEED")
@@ -138,11 +141,6 @@ class Input:
             stdscr.addstr(column, 10, f"ENTER THE FINAL MARK FOR {Input.students[student_id]['name']}: ")
             str = f"ENTER THE FINAL MARK FOR {Input.students[student_id]['name']}: "
             final = float(stdscr.getstr(column, 10+ len(str), 2))
-            
-            
-            
-            
-            #average*0.2 will return marks and gpa in 4.0 scale
         
             marks_for_student = Mark(attendance, midterm, final)
             if student_id not in Input.marks:

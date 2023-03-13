@@ -3,8 +3,10 @@ from Domain.Mark import Mark
 import numpy as np
 import curses
 
+#Create curses Output
 class Output:
     
+    #create gpa
     gpa = {}
 
     def option_slide(stdscr = curses.initscr()):
@@ -101,7 +103,7 @@ class Output:
         
         
         stdscr.addstr(column,10, "ENTER THE COURSE ID: ")
-        course_id = stdscr.getstr(column,31, 50)
+        course_id = stdscr.getstr(column,31, 50).decode("utf-8")
         column += 2
         if course_id not in Input.courses:
             stdscr.addstr(column, 10, "COURSE NOT FOUND! PRESS ENTER TO PRECEED. ")
